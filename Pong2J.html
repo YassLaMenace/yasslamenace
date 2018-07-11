@@ -53,7 +53,7 @@
 			run=false;
 			find=false;
 			fing=false;
-			bal={x:width/2,y:height/2, vx:4,vy:4, r:20};
+			bal={x:width/2,y:height/2, vx:10,vy:10, r:20};
 			B1={x:width-50,y:180};
 			B2={x:50, y:180};
 			delta1=0;
@@ -140,10 +140,10 @@
 		function keyPressed()
 		{
 			if(keyCode==32) run=true;
-			if(keyCode==79) delta1=-5;
-			if(keyCode==76) delta1=5;
-			if(keyCode==90) delta2=-5;
-			if(keyCode==83) delta2=5;
+			if(keyCode==79) delta1=-50;
+			if(keyCode==76) delta1=50;
+			if(keyCode==90) delta2=-50;
+			if(keyCode==83) delta2=50;
 		}
 		function keyReleased()
 		{
@@ -160,8 +160,7 @@
 <body>
 <h1>Ping-Pong 2 Joueur</h1>
 <h2>Appuyer sur espace pour commencer à jouer<h2>
-
-<h3>Touches:</h5>
+	
 <h4>Player 1: Z pour monter S pour descendre.</h5>
 <h4>Player 2: O pour monter L pour descendre.</h5>
 	</div>
