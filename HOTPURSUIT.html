@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>HOTpursuit</title>
+	<script type="text/javascript" src="p5.js"></script>
+	<style type="text/css">	
+	 body{
+	 	text-align: center;
+	 	background-color: #33ACFF
+
+	#text3
+	{
+		width: 5px;
+		height:10px;
+		background-color: transparent;
+		position:absolute;
+		top:5px;
+		left:4px;
+		color: white;
+		text-align:justify;
+	}
+
+	#text3 a 
+	{
+		color:white;
+		text-align: none;
+	}
+		}	
+	</style>
+	<script type="text/javascript">
+		
+		
+		var imFond0, imFond1;//images fond
+	    var F,G; //coordonnées fonds
+
+	    var imVoiture; //images voiture
+	    var V; // coordonnées voiture
+	    var delta; //pas deplacement vertical de la voiture
+
+	    var imPolice; // images poice
+	    var M=[]; //coordonnées police
+
+	    var imPiece;
+	    var P=[];
+
+	    var imExplose; // image explosion
+
+	    var choc1;// choc voiture police
+	    var choc2; // choc voiture piece
+	    
+		var run; // jeu en cours
+		var fin; // arrêt du jeu
+		var score;
+		
+		function preload()
+		{
+			imFond0 = loadImage("route.jpg");
+			imFond1 = loadImage("route.jpg");
+			imVoiture = loadImage("voiture-1.png");
+			imPolice = loadImage("police-1.png");
+			imExplose = loadImage("explosion.png");
+			imPiece = loadImage("Gold.png");
+		}
+		//####################
+		// Initialisations
+		//####################	
+	 	function setup()
+		{
+			createCanvas(imFond0.width,imFond0.height);
+			choc1= new Collision(imVoiture,imPolice);
+			choc2= new Collision(imVoiture,imPiece);
+			fill(255,255,0);
+			textSize(20);
+			initJeu();
+			afficheJeu();
+		}
+
+		function initJeu()
+		{
+			run=false;
+			fin=false;
+			score=0;
+			delta=0;
+			//Fond
+			F={x:0,y:0};
+			G={x:0,y:-height};
+			V={x:width/2-imVoiture.width/2,y:height/2};
+			for (var i = 0; i < 2; i++) 
+			{
+				var alea1=random(0,width-imPolice);
+				var alea2=random(0,width-imPiece);
+				var alea3=random(-100,-300);
+				var alea4=random(-30,-100);
+				M[i]={x:alea1, y:alea3};
+				P[i]={x:alea2, y:alea4};
+			}
+		}
+
+		//####################
+		// Deplacements
+		//####################
+		
+		function draw()
+		{		
+			if((run==true)&&(fin==false))
+			{	
+			deplaceFond();
+			deplaceVoiture();
+			deplacePolice();
+			deplacePiece();
+			afficheJeu();
+			}
+			if (fin==true) 
+			{
+				fini();
+			}
+		}
+		function deplaceFond()
+		{
+			F.y=F.y+5;
+			G.y=G.y+5;
+			if(F.y>height) F.y=-height
+			if(G.y>height) G.y=-height
+		}
+		function deplaceVoiture()
+		{
+			
+		V.x=V.x+delta;
+		if(V.x>width-imVoiture.width) V.x=width-imVoiture.width
+		if(V.x<0) V.x=0
+		}
+
+		function deplacePolice()
+		{
+		for (var i = 0; i < M.length; i++) 
+			{
+				M[i].y=M[i].y+3;
+        		if(M[i].y>height)
+				{
+					score=score+1
+					M[i].x= random(0,width-imPolice.width);
+					M[i].y=-imPolice.height;
+				}
+				if(choc1.detection(V.x,V.y,M[i].x,M[i].y)==true)
+				{
+					run=false;
+					fin=true;
+				}
+			}	
+	}
+
+		//####################
+		// Affichage
+		//####################
+		function afficheJeu()
+		{
+			image(imFond0,F.x,F.y);
+			image(imFond1,G.x,G.y);
+			image(imVoiture,V.x,V.y);
+			
+			for (var i = 0; i < M.length; i++) 
+			{
+				image(imPolice,M[i].x,M[i].y);
+			}
+			for (var i = 0; i < P.length; i++) 
+			{
+				image(imPiece,P[i].x,P[i].y);
+			}
+			text(score,40,20);
+		}
+
+		//##############
+		// Clavier
+		//##############
+
+		function keyPressed()
+	{
+		if(keyCode==32) run=true
+		if(keyCode==37) delta=-5
+		if(keyCode==39) delta=5
+	}
+	function keyReleased()
+	{
+		if(keyCode==37) delta=0
+		if(keyCode==39) delta=0
+	}
+
+		//##############
+		// arret
+		//##############
+		function fini()
+		{
+			image(imExplose,V.x-imExplose.width/2,V.y-imExplose.height/2);
+			fill(255,0,0);
+			textSize(80);
+			text("GAME OVER",width/20,height/2);
+		}
+		function deplacePiece()
+		{
+			for (var i = 0; i < P.length; i++) 
+			{
+				P[i].y=P[i].y+3;
+        		if(P[i].y>height)
+				{
+					P[i].x= random(0,width-imPiece.width);
+					P[i].y= -imPiece.height;
+				}
+				if(choc2.detection(V.x,V.y,P[i].x,P[i].y))
+				{
+				score=score+2
+				P[i].x= random(0,width-imPiece.width);
+				P[i].y= -1000;
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+
+<div id="wrap">
+	<h1>HOT PURSUIT</h1>
+	<h5>Appuyer sur la touche "les flèches" pour te déplacer.</h5>	
+	<h5>Appuyer sur la barre "espace" pour COMMENCER.</h5>
+	</div>
+		    <div id="banniere" style="margin-left:auto; margin-right:auto; text-align:center; background:orange no-repeat center center; width:width; height: 50px;">
+
+		    	<div id="text3">
+				<a href="page.html">Accueil</a>
+				
+				
+			</div>
+		<div>
+			
+			<a href="javascript:document.location.href='HOTPURSUIT.html'">Restart</a>
+
+		</div>	
+</div>	
+</body>
+</html>

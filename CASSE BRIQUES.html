@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Casse Bique</title>
+	<style type="text/css">
+	 body{
+	 	text-align: center;
+	 	background-color: #33FF52
+
+	#text3
+	{
+		width: 5px;
+		height:10px;
+		background-color: transparent;
+		position:absolute;
+		top:5px;
+		left:4px;
+		color: white;
+		text-align:justify;
+	}
+
+	#text3 a 
+	{
+		color:white;
+		text-align: none;
+	}
+	 	 }
+	 	 	</style>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="p5Projet.js"></script>
+	<script type="text/javascript">
+		
+		var B1;
+		var bal;
+		var choc1;
+		var choc2;
+		var run;
+			B=[];
+		function setup()
+		{
+			createCanvas(680,440);
+			background(29,29,29);	
+			initjeu();
+			afficheJeu();
+		}
+		function initjeu()
+		{
+			run=false;
+			fin=false;
+			
+			score=0;
+			win=false
+			bal={x:width/2,y:height/2, vx:3,vy:random(2,3), r:20};
+			B1={x:width/2, y:400};	
+			for (var i = 0; i < 28; i++) 
+			{			
+				B[i]={x:(35+(i%7)*90), y:45*(floor(i/7)+1)};
+				console.log(i,B[i]);
+			}
+		}
+		function draw()
+		{
+			if((run==true)&&(fin==false))
+			{	
+			deplaceballe();
+			deplacebarre();
+			afficheJeu();
+			}
+			if (fin==true) 
+			{
+				fini();
+			}
+		}
+		function afficheballe()
+		{
+			fill(255,150,0);
+			ellipse(bal.x,bal.y,20,20);
+		}
+		function affichebarre()
+		{	    	
+	    	fill(255,150,0);
+	    	rect(B1.x,B1.y,90,10);
+	    		
+		}
+		function affichebriques()
+		{
+			for (var i = 0; i < B.length; i++) 
+			{
+				rect(B[i].x,B[i].y,50,15);
+			}
+		}
+		function afficheJeu()
+		{	
+			background(29,29,29);
+			affichebarre();
+			afficheballe();
+			affichebriques();
+			textSize(30);
+			text(score,20,40);
+		}
+		function deplaceballe()
+		{
+			bal.x=bal.x+bal.vx
+			bal.y=bal.y+bal.vy
+			if (interRectCercle(B1.x,B1.y,90,10,bal.x,bal.y,10))
+				{
+					bal.vy=-bal.vy;
+
+				}
+			
+			if ((bal.x>width-bal.r)||(bal.x<bal.r)) bal.vx=-bal.vx;
+			if (bal.y<bal.r) bal.y=bal.r, bal.vy=-bal.vy;
+			for (var i = 0; i < B.length; i++) 
+			{
+				if (interRectCercle(B[i].x,B[i].y,80,20,bal.x,bal.y,10))
+				{
+					bal.vy=-bal.vy;
+					B.splice(i,1);
+					score=score+1
+				}
+			}
+			if (bal.y>height+10)
+				fin=true;
+			
+		}
+		function deplacebarre()
+		{
+			B1.x=mouseX;
+			
+			if(B1.x>width-80) B1.x=width-82;
+			if(B1.x<0) B1.x=0;			
+		}		
+function keyPressed()
+		{
+			if(keyCode==32) run=true;
+		}
+
+function fini()
+		{
+			fill(50,250,80);
+			textSize(90);
+			text("GAME OVER",width/12,height/1.6);	
+		}
+
+
+
+
+	</script>
+</head>
+<body>
+<h1>Casse Briques</h1>
+<h2>Appuyer sur espace pour commencer à jouer<h2>
+	</div>
+		    <div id="banniere" style="margin-left:auto; margin-right:auto; text-align:center; background:orange no-repeat center center; width:width; height: 50px;">
+
+		    	<div id="text3">
+				<a href="page.html">Accueil</a>
+				
+				
+			</div>
+		<div>
+			
+			<a href="javascript:document.location.href='CASSE BRIQUES.html'">Restart</a>
+
+		</div>
+</body>
+</html>

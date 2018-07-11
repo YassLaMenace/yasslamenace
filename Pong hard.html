@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ping-Pong hard mode</title>
+	<style type="text/css">
+	 body{
+	 	text-align: center;
+	 	background-color: #FF3378
+
+	#text3
+	{
+		width: 5px;
+		height:10px;
+		background-color: transparent;
+		position:absolute;
+		top:5px;
+		left:4px;
+		color: white;
+		text-align:justify;
+	}
+
+	#text3 a 
+	{
+		color:white;
+		text-align: none;
+	}
+	 	 }
+	</style>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="p5Projet.js"></script>
+	<script type="text/javascript">
+		var B1;
+		var B2;
+		var bal;
+		var choc1;
+		var choc2;
+		var run;
+		var delta;
+		var score 
+		var fin
+		function setup()
+		{
+			
+			createCanvas(680,440);
+			background(29,29,29);	
+
+			initjeu();
+
+		}
+		function initjeu()
+		{
+			stroke(250,250,250);
+			line(width/2,0,width/2,height);
+			run=false;
+			fin=false;
+			score=0;
+			delta=2;
+			bal={x:width/2,y:height/2, vx:10,vy:10, r:20};
+			B1={x:width-50, y:200};	
+			B2={x:30, y:200};
+			afficheballe()
+			affichebarre()
+
+
+			
+
+		}
+		function draw()
+		{
+
+			if((run==true)&&(fin==false))
+			{	
+			deplaceballe();
+			deplacebarre();
+			afficheJeu();
+			stroke(250,250,250);
+			line(width/2,0,width/2,height);
+			}
+			if (fin==true) 
+			{
+				fini();
+			}
+		}
+		function afficheballe()
+		{
+			fill(250,50,50);
+			ellipse(bal.x,bal.y,25,25);
+		}
+		function affichebarre()
+		{	    	
+	    	rect(B1.x,B1.y,10,50);
+	    	rect(B2.x,B2.y,10,50);	
+		}
+		function afficheJeu()
+		{	
+			background(29,29,29);
+			affichebarre();
+			afficheballe();
+			text(score,width/2,40);
+			textSize(50);
+
+
+		}
+		function deplaceballe()
+		{
+			bal.x=bal.x+bal.vx
+			bal.y=bal.y+bal.vy
+			if ((interRectCercle(B1.x,B1.y,20,50,bal.x,bal.y,12.5)==true)&&(bal.vx>0)) 
+				{
+					
+					bal.vx=-bal.vx;
+					score=score+1
+				}
+			if ((interRectCercle(B2.x,B2.y,20,50,bal.x,bal.y,12.5)==true)&&(bal.vx<0))
+			{
+				bal.vx=-bal.vx;
+				score=score+1
+			}
+			if ((bal.y>height-bal.r)||(bal.y<bal.r)) bal.vy=-bal.vy;
+			if ((bal.x<-bal.r)||(bal.x>width+bal.r)) fin=true;
+			
+			
+	}
+		function deplacebarre()
+		{
+			B1.y=mouseY;
+			B2.y=mouseY;
+			if(B1.y>height-80) B1.y=height-82;
+			if(B1.y<0) B1.y=0;
+			if(B2.y>height-80) B2.y=height-82;
+			if(B2.y<0) B2.y=0;
+		}
+		function keyPressed()
+		{
+			if(keyCode==32) run=true;
+			if(keyCode==32) B1.y=-3;
+			if(keyCode==32) B2.y=-3;
+		}
+
+		function keyReleased()
+		{
+			if(keyCode==32) delta=3;
+		}
+		function fini()
+		{
+			
+			fill(250,0,0);
+			textSize(90);
+			text("GAME OVER",width/12,height/2);
+			
+		}
+
+
+
+
+
+	</script>
+</head>
+<body>
+<h1>Ping-Pong Hard Mode</h1>
+<h2>Appuyer sur espace pour commencer à jouer<h2>
+	</div>
+		    <div id="banniere" style="margin-left:auto; margin-right:auto; text-align:center; background:orange no-repeat center center; width:width; height: 50px;">
+
+		    	<div id="text3">
+				<a href="page.html">Accueil</a>
+				
+				
+			</div>
+		<div>
+			
+			<a href="javascript:document.location.href='Pong hard.html'">Restart</a>
+
+		</div>
+</body>
+</html>
