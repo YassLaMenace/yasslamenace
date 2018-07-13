@@ -1,0 +1,22 @@
+body{
+	 	text-align: center;
+	 	background-color: grey;
+
+	#text3
+	{
+		width: 5px;
+		height:10px;
+		background-color: transparent;
+		position:absolute;
+		top:5px;
+		left:4px;
+		color: white;
+		text-align:justify;
+	}
+
+	#text3 a 
+	{
+		color:white;
+		text-align: none;
+	}
+	 	 }

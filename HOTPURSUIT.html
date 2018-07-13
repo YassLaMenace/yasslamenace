@@ -4,30 +4,7 @@
 	<meta charset="utf-8">
 	<title>HOTpursuit</title>
 	<script type="text/javascript" src="p5.js"></script>
-	<style type="text/css">	
-	 body{
-	 	text-align: center;
-	 	background-color: #33ACFF
-
-	#text3
-	{
-		width: 5px;
-		height:10px;
-		background-color: transparent;
-		position:absolute;
-		top:5px;
-		left:4px;
-		color: white;
-		text-align:justify;
-	}
-
-	#text3 a 
-	{
-		color:white;
-		text-align: none;
-	}
-		}	
-	</style>
+	<link rel="stylesheet" href="HOTPURSUIT.css">
 	<script type="text/javascript">
 		
 		
@@ -38,11 +15,11 @@
 	    var V; // coordonnées voiture
 	    var delta; //pas deplacement vertical de la voiture
 
-	    var imPolice; // images poice
+	    var imPolice; // images police
 	    var M=[]; //coordonnées police
 
-	    var imPiece;
-	    var P=[];
+	    var imPiece; //image piece
+	    var P=[]; // coordonnées piece
 
 	    var imExplose; // image explosion
 
@@ -51,7 +28,7 @@
 	    
 		var run; // jeu en cours
 		var fin; // arrêt du jeu
-		var score;
+		var score; // score
 		
 		function preload()
 		{
@@ -114,6 +91,7 @@
 			if (fin==true) 
 			{
 				fini();
+				affichescore();
 			}
 		}
 		function deplaceFond()
@@ -135,7 +113,7 @@
 		{
 		for (var i = 0; i < M.length; i++) 
 			{
-				M[i].y=M[i].y+3;
+				M[i].y=M[i].y+11;
         		if(M[i].y>height)
 				{
 					score=score+1
@@ -177,8 +155,8 @@
 		function keyPressed()
 	{
 		if(keyCode==32) run=true
-		if(keyCode==37) delta=-5
-		if(keyCode==39) delta=5
+		if(keyCode==37) delta=-10
+		if(keyCode==39) delta=10
 	}
 	function keyReleased()
 	{
@@ -194,7 +172,13 @@
 			image(imExplose,V.x-imExplose.width/2,V.y-imExplose.height/2);
 			fill(255,0,0);
 			textSize(80);
-			text("GAME OVER",width/20,height/2);
+			text("GAME OVER",width/20,height/3);
+		}
+		function affichescore()
+		{
+			fill(51,51,51);
+			textSize(40);
+			text("votre score "+score,width/4,height/2);
 		}
 		function deplacePiece()
 		{
@@ -215,6 +199,7 @@
 			}
 		}
 	</script>
+	<link rel="icon" type="image/png" href="kirua.jpg">
 </head>
 <body>
 
@@ -228,8 +213,13 @@
 		    	<div id="text3">
 				<a href="page.html">Accueil</a>
 				
+			</div>
+
+			<div id="text6">
+				<a href="page.html">EJAY Games</a>
 				
 			</div>
+
 		<div>
 			
 			<a href="javascript:document.location.href='HOTPURSUIT.html'">Restart</a>

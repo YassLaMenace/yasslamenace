@@ -1,0 +1,42 @@
+body{
+	 	text-align: center;
+	 	background-color: grey;
+
+	#text3
+	{
+		width: 5px;
+		height:10px;
+		background-color: transparent;
+		position:absolute;
+		top:5px;
+		left:4px;
+		color: white;
+		text-align:justify;
+	}
+
+	#text3 a 
+	{
+		color:white;
+		text-align: none;
+	}
+
+	#text6
+	{
+	width: 50px;
+		height:100px;
+		background-color: transparent;
+		position:left;
+		top:50px;
+		left:40px;
+		color: white;
+		text-align:none;	
+	}
+
+	#text6 a 
+	{
+		color:white;
+		text-align: left;
+	}
+		}
+
+	
