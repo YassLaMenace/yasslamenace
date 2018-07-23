@@ -42,6 +42,31 @@ body
 		transform: rotate(-5deg) scale(1.3);
 	}
 
+	#text:hover
+	{
+		color:blue;
+	}
+
+	#text2:hover
+	{
+		color:blue;
+	}
+
+	#text3:hover
+	{
+		color:blue;
+	}
+
+	#text4:hover
+	{
+		color:blue;
+	}
+
+	#text5:hover
+	{
+		color:blue;
+	}
+
 	#text2
 	{
 		width: 450px;
